@@ -1,6 +1,6 @@
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRL8cqzJAOvtoxbYB1_vHTk65C_Ki0y6cquXy4ieGSK30WCFKxP6HNguFC5rn6Jvdh/exec';
 
-// Kirim data pesanan
+// Fungsi kirim data pendaftar
 async function kirim() {
   const nama = document.getElementById('nama').value.trim();
   const noWa = document.getElementById('noWa').value.trim();
@@ -16,19 +16,35 @@ async function kirim() {
     return;
   }
 
+  // Data yang dikirim ke Apps Script
+  const pendaftar = { nama, noWa, email, alamat, pendidikan, pekerjaan, alasan, info };
 
-  document.getElementById('status').textContent = "⏳ Mengirim data...";
+  const statusEl = document.getElementById('status');
+  statusEl.textContent = "⏳ Mengirim data...";
+
   try {
-    await fetch(SCRIPT_URL, {
+    const response = await fetch(SCRIPT_URL, {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(pendaftar),
     });
-    document.getElementById('status').textContent = "✅ Data anda berhasil dikirim!";
+
+    const text = await response.text();
+    console.log('Respon dari server:', text);
+
+    statusEl.textContent = text.includes('✅')
+      ? "✅ Data anda berhasil dikirim!"
+      : "⚠️ Terjadi kesalahan: " + text;
+
+    // Reset form setelah berhasil
+    if (text.includes('✅')) {
+      document.getElementById('formPendaftaran').reset();
+    }
+
   } catch (err) {
-    console.error(err);
-    document.getElementById('status').textContent = "❌ Gagal mengirim data!";
+    console.error('Error:', err);
+    statusEl.textContent = "❌ Gagal mengirim data!";
   }
 }
 
-// Event listeners
+// Pasang event listener di tombol
 document.getElementById('kirim').addEventListener('click', kirim);
