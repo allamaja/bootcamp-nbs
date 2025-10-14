@@ -1,4 +1,4 @@
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztC4hZdlKKBoY9l5JKGxIvho1ca4FIMzaj0GTFIEs_IOosGOEOY9TYskysRQJZ1o8r/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRL8cqzJAOvtoxbYB1_vHTk65C_Ki0y6cquXy4ieGSK30WCFKxP6HNguFC5rn6Jvdh/exec';
 
 // Kirim data pesanan
 async function kirim() {
@@ -23,7 +23,7 @@ async function kirim() {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    document.getElementById('status').textContent = "✅ Pesanan berhasil dikirim!";
+    document.getElementById('status').textContent = "✅ Data anda berhasil dikirim!";
   } catch (err) {
     console.error(err);
     document.getElementById('status').textContent = "❌ Gagal mengirim data!";
