@@ -141,17 +141,6 @@ button {
   font-weight: bold;
 }
 
-#tambah {
-  background-color: #008797;
-  color: #fff;
-  margin-right: 10px;
-}
-
-#tambah:hover {
-  background-color: #04a2b5;
-  transform: translateY(-2px);
-}
-
 #kirim {
   background-color: #0a7480;
   color: #fff;
@@ -161,25 +150,10 @@ button {
   background-color: #0e8b99;
   transform: translateY(-2px);
 }
-/* Warna tombol */
-#tambahBarangBtn {
-  background-color: #3EDC81;
-  color: white;
-}
 
 #kirimPesananBtn {
   background-color: #047857;
   color: white;
-}
-.hapus {
-  background-color: #ef4444;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
-.hapus:hover {
-  background-color: #dc2626;
 }
 
 /* ===== STATUS ===== */
@@ -196,9 +170,9 @@ button {
 }
 
 .logo {
-  width: 250px; /* ukuran logo bisa disesuaikan */
+  width: 300px; /* ukuran logo bisa disesuaikan */
   height: auto;
-  border-radius: 8px; /* opsional, buat sudut membulat */
+  border-radius: 10px; /* opsional, buat sudut membulat */
 }
 
 /* Responsive di HP */
@@ -209,7 +183,7 @@ button {
     gap: 8px; /* jarak vertikal antar tombol */
   }
   .logo {
-    width: 80px;
+    width: 100px;
   }
   .barang-row {
     flex-direction: column; /* susun vertikal */
