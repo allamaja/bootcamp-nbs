@@ -172,7 +172,7 @@ button {
 .logo {
   width: 300px; /* ukuran logo bisa disesuaikan */
   height: auto;
-  border-radius: 10px; /* opsional, buat sudut membulat */
+  border-radius: 0px; /* opsional, buat sudut membulat */
 }
 
 /* Responsive di HP */
