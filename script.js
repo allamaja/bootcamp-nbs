@@ -1,7 +1,9 @@
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRL8cqzJAOvtoxbYB1_vHTk65C_Ki0y6cquXy4ieGSK30WCFKxP6HNguFC5rn6Jvdh/exec';
 
-// Fungsi kirim data pendaftar
-async function kirim() {
+// Tangani event submit form
+document.getElementById('formPendaftaran').addEventListener('submit', async function (e) {
+  e.preventDefault(); // cegah reload halaman
+
   const nama = document.getElementById('nama').value.trim();
   const noWa = document.getElementById('noWa').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -16,10 +18,10 @@ async function kirim() {
     return;
   }
 
-  // Data yang dikirim ke Apps Script
   const pendaftar = { nama, noWa, email, alamat, pendidikan, pekerjaan, alasan, info };
-
   const statusEl = document.getElementById('status');
+  const formContainer = document.getElementById('formPendaftaran');
+
   statusEl.textContent = "⏳ Mengirim data...";
 
   try {
@@ -31,20 +33,23 @@ async function kirim() {
     const text = await response.text();
     console.log('Respon dari server:', text);
 
-    statusEl.textContent = text.includes('✅')
-      ? "✅ Data anda berhasil dikirim!"
-      : "⚠️ Terjadi kesalahan: " + text;
-
-    // Reset form setelah berhasil
     if (text.includes('✅')) {
-      document.getElementById('formPendaftaran').reset();
+      // Sembunyikan form
+      formContainer.style.display = 'none';
+      
+      // Ganti dengan pesan terima kasih
+      const container = document.querySelector('.container');
+      container.innerHTML += `
+        <div class="thanks-message" style="text-align:center; padding:20px;">
+          <h2>🎉 Terima kasih sudah mendaftar Bootcamp NBS!</h2>
+          <p>Kami akan menghubungi kamu melalui WhatsApp atau email dalam waktu dekat.</p>
+        </div>
+      `;
+    } else {
+      statusEl.textContent = "⚠️ Terjadi kesalahan: " + text;
     }
-
   } catch (err) {
     console.error('Error:', err);
     statusEl.textContent = "❌ Gagal mengirim data!";
   }
-}
-
-// Pasang event listener di tombol
-document.getElementById('kirim').addEventListener('click', kirim);
+});
